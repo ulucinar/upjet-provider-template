@@ -18,5 +18,6 @@ func Configure(p *ujconfig.Provider) {
 		s := r.TerraformResource.Schema["triggers"]
 		delete(r.TerraformResource.Schema, "triggers")
 		r.TerraformResource.Schema["triggers_renamed"] = s
+		r.Version = "v1beta1"
 	})
 }
