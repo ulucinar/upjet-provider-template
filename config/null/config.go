@@ -13,5 +13,10 @@ func Configure(p *ujconfig.Provider) {
 	p.AddResourceConfigurator("null_resource", func(r *ujconfig.Resource) {
 		r.Kind = "Resource"
 		// And other overrides.
+
+		// an example renaming from triggers -> triggers_renamed
+		s := r.TerraformResource.Schema["triggers"]
+		delete(r.TerraformResource.Schema, "triggers")
+		r.TerraformResource.Schema["triggers_renamed"] = s
 	})
 }
