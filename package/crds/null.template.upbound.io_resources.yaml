@@ -76,6 +76,7 @@ spec:
                       force the null resource to be replaced, re-running any associated
                       provisioners.
                     type: object
+                    x-kubernetes-map-type: granular
                 type: object
               initProvider:
                 description: THIS IS A BETA FIELD. It will be honored unless the Management
@@ -96,6 +97,7 @@ spec:
                       force the null resource to be replaced, re-running any associated
                       provisioners.
                     type: object
+                    x-kubernetes-map-type: granular
                 type: object
               managementPolicies:
                 default:
@@ -271,6 +273,7 @@ spec:
                       force the null resource to be replaced, re-running any associated
                       provisioners.
                     type: object
+                    x-kubernetes-map-type: granular
                 type: object
               conditions:
                 description: Conditions of the resource.
