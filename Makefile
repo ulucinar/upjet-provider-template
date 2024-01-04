@@ -71,6 +71,8 @@ XPKG_REG_ORGS ?= xpkg.upbound.io/upbound
 # inferred.
 XPKG_REG_ORGS_NO_PROMOTE ?= xpkg.upbound.io/upbound
 XPKGS = $(PROJECT_NAME)
+XPKG_DIR = $(OUTPUT_DIR)/package
+XPKG_IGNORE = kustomize/*,crds/*
 -include build/makelib/xpkg.mk
 
 # ====================================================================================
@@ -242,3 +244,14 @@ crossplane.help:
 help-special: crossplane.help
 
 .PHONY: crossplane.help help-special
+
+build.init: kustomize-crds
+
+kustomize-crds: output.init
+	rm -fr $(OUTPUT_DIR)/package
+	cp -R package $(OUTPUT_DIR) && \
+	cd $(OUTPUT_DIR)/package/crds && \
+	kustomize create --autodetect
+	kustomize build $(OUTPUT_DIR)/package/kustomize -o $(OUTPUT_DIR)/package/crds.yaml
+
+.PHONY: kustomize-crds
