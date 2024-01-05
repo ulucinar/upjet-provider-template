@@ -16,12 +16,9 @@ func Configure(p *ujconfig.Provider) {
 		// And other overrides.
 
 		// an example renaming from triggers -> triggers_renamed
-		s := r.TerraformResource.Schema["triggers"]
-		delete(r.TerraformResource.Schema, "triggers")
-		r.TerraformResource.Schema["triggers_renamed"] = s
 		r.Version = "v1beta1"
 
-		r.Conversions = append(r.Conversions, conversion.NewFieldRenameConversion("v1alpha1", "spec.forProvider.triggers", "v1beta1", "spec.forProvider.triggersRenamed"))
-		r.Conversions = append(r.Conversions, conversion.NewFieldRenameConversion("v1beta1", "spec.forProvider.triggersRenamed", "v1alpha1", "spec.forProvider.triggers"))
+		r.Conversions = append(r.Conversions, conversion.NewFieldRenameConversion("v1beta1", "spec.forProvider.triggers", "v1alpha1", "spec.forProvider.triggersRenamed"))
+		r.Conversions = append(r.Conversions, conversion.NewFieldRenameConversion("v1alpha1", "spec.forProvider.triggersRenamed", "v1beta1", "spec.forProvider.triggers"))
 	})
 }

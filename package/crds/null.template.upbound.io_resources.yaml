@@ -36,8 +36,8 @@ spec:
       openAPIV3Schema:
         description: Resource is the Schema for the Resources API. The null_resource
           resource implements the standard resource lifecycle but takes no further
-          action. The triggers argument allows specifying an arbitrary set of values
-          that, when changed, will cause the resource to be replaced.
+          action. The triggers_renamed argument allows specifying an arbitrary set
+          of values that, when changed, will cause the resource to be replaced.
         properties:
           apiVersion:
             description: 'APIVersion defines the versioned schema of this representation
@@ -69,7 +69,7 @@ spec:
                 type: string
               forProvider:
                 properties:
-                  triggers:
+                  triggersRenamed:
                     additionalProperties:
                       type: string
                     description: A map of arbitrary strings that, when changed, will
@@ -90,7 +90,7 @@ spec:
                   for example because of an external controller is managing them,
                   like an autoscaler.
                 properties:
-                  triggers:
+                  triggersRenamed:
                     additionalProperties:
                       type: string
                     description: A map of arbitrary strings that, when changed, will
@@ -266,7 +266,7 @@ spec:
                 properties:
                   id:
                     type: string
-                  triggers:
+                  triggersRenamed:
                     additionalProperties:
                       type: string
                     description: A map of arbitrary strings that, when changed, will
@@ -370,7 +370,7 @@ spec:
                 type: string
               forProvider:
                 properties:
-                  triggersRenamed:
+                  triggers:
                     additionalProperties:
                       type: string
                     description: A map of arbitrary strings that, when changed, will
@@ -391,7 +391,7 @@ spec:
                   for example because of an external controller is managing them,
                   like an autoscaler.
                 properties:
-                  triggersRenamed:
+                  triggers:
                     additionalProperties:
                       type: string
                     description: A map of arbitrary strings that, when changed, will
@@ -567,7 +567,7 @@ spec:
                 properties:
                   id:
                     type: string
-                  triggersRenamed:
+                  triggers:
                     additionalProperties:
                       type: string
                     description: A map of arbitrary strings that, when changed, will

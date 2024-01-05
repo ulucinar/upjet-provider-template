@@ -4,7 +4,7 @@ metadata:
   name: example
 spec:
   forProvider:
-    triggers:
+    triggersRenamed:
       example-trigger: example-value
   providerConfigRef:
     name: default

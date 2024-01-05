@@ -21,7 +21,7 @@ type ResourceInitParameters struct {
 
 	// A map of arbitrary strings that, when changed, will force the null resource to be replaced, re-running any associated provisioners.
 	// +mapType=granular
-	TriggersRenamed map[string]*string `json:"triggersRenamed,omitempty" tf:"triggers_renamed,omitempty"`
+	Triggers map[string]*string `json:"triggers,omitempty" tf:"triggers,omitempty"`
 }
 
 type ResourceObservation struct {
@@ -29,7 +29,7 @@ type ResourceObservation struct {
 
 	// A map of arbitrary strings that, when changed, will force the null resource to be replaced, re-running any associated provisioners.
 	// +mapType=granular
-	TriggersRenamed map[string]*string `json:"triggersRenamed,omitempty" tf:"triggers_renamed,omitempty"`
+	Triggers map[string]*string `json:"triggers,omitempty" tf:"triggers,omitempty"`
 }
 
 type ResourceParameters struct {
@@ -37,7 +37,7 @@ type ResourceParameters struct {
 	// A map of arbitrary strings that, when changed, will force the null resource to be replaced, re-running any associated provisioners.
 	// +kubebuilder:validation:Optional
 	// +mapType=granular
-	TriggersRenamed map[string]*string `json:"triggersRenamed,omitempty" tf:"triggers_renamed,omitempty"`
+	Triggers map[string]*string `json:"triggers,omitempty" tf:"triggers,omitempty"`
 }
 
 // ResourceSpec defines the desired state of Resource
