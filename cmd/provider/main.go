@@ -6,6 +6,7 @@ package main
 
 import (
 	"context"
+	"github.com/crossplane/upjet/pkg/controller/conversion"
 	"os"
 	"path/filepath"
 	"time"
@@ -126,6 +127,7 @@ func main() {
 		log.Info("Beta feature enabled", "flag", features.EnableBetaManagementPolicies)
 	}
 
+	kingpin.FatalIfError(conversion.RegisterConversions(o.Provider), "Cannot initialize the webhook conversion registry")
 	kingpin.FatalIfError(controller.Setup(mgr, o), "Cannot setup Template controllers")
 	kingpin.FatalIfError(mgr.Start(ctrl.SetupSignalHandler()), "Cannot start controller manager")
 }

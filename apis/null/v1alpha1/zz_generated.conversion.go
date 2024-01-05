@@ -12,22 +12,23 @@ package v1alpha1
 
 import (
 	ujconversion "github.com/crossplane/upjet/pkg/controller/conversion"
+	"github.com/crossplane/upjet/pkg/resource"
 	"github.com/pkg/errors"
 	"sigs.k8s.io/controller-runtime/pkg/conversion"
 )
 
 // ConvertTo converts this Resource to the hub type.
 func (tr *Resource) ConvertTo(dstRaw conversion.Hub) error {
-	if err := ujconversion.RoundTrip(dstRaw, tr); err != nil {
-		return errors.Wrap(err, "cannot convert a spoke version to the hub version")
+	if err := ujconversion.RoundTrip(dstRaw.(resource.Terraformed), tr); err != nil {
+		return errors.Wrapf(err, "cannot convert from the spoke version %q to the hub version %q", tr.GetObjectKind().GroupVersionKind().Version, dstRaw.GetObjectKind().GroupVersionKind().Version)
 	}
 	return nil
 }
 
 // ConvertFrom converts from the hub type to the Resource type.
 func (tr *Resource) ConvertFrom(srcRaw conversion.Hub) error {
-	if err := ujconversion.RoundTrip(tr, srcRaw); err != nil {
-		return errors.Wrap(err, "cannot convert the hub version to a spoke version")
+	if err := ujconversion.RoundTrip(tr, srcRaw.(resource.Terraformed)); err != nil {
+		return errors.Wrapf(err, "cannot convert from the hub version %q to the spoke version %q", srcRaw.GetObjectKind().GroupVersionKind().Version, tr.GetObjectKind().GroupVersionKind().Version)
 	}
 	return nil
 }

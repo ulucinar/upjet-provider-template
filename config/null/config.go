@@ -6,6 +6,7 @@ package null
 
 import (
 	ujconfig "github.com/crossplane/upjet/pkg/config"
+	"github.com/crossplane/upjet/pkg/config/conversion"
 )
 
 // Configure configures the null group
@@ -19,5 +20,8 @@ func Configure(p *ujconfig.Provider) {
 		delete(r.TerraformResource.Schema, "triggers")
 		r.TerraformResource.Schema["triggers_renamed"] = s
 		r.Version = "v1beta1"
+
+		r.Conversions = append(r.Conversions, conversion.NewFieldRenameConversion("v1alpha1", "spec.forProvider.triggers", "v1beta1", "spec.forProvider.triggersRenamed"))
+		r.Conversions = append(r.Conversions, conversion.NewFieldRenameConversion("v1beta1", "spec.forProvider.triggersRenamed", "v1alpha1", "spec.forProvider.triggers"))
 	})
 }
