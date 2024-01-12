@@ -53,7 +53,7 @@ func main() {
 		enableExternalSecretStores = app.Flag("enable-external-secret-stores", "Enable support for ExternalSecretStores.").Default("false").Envar("ENABLE_EXTERNAL_SECRET_STORES").Bool()
 		enableManagementPolicies   = app.Flag("enable-management-policies", "Enable support for Management Policies.").Default("true").Envar("ENABLE_MANAGEMENT_POLICIES").Bool()
 
-		certsDir = app.Flag("certs-dir", "The directory that contains the server key and certificate.").Default(filepath.Join(os.TempDir(), "k8s-webhook-server", "serving-certs")).Envar("CERTS_DIR").ExistingFileOrDir()
+		certsDir = app.Flag("certs-dir", "The directory that contains the server key and certificate.").Default("/tls/server").Envar("CERTS_DIR").ExistingFileOrDir()
 	)
 
 	kingpin.MustParse(app.Parse(os.Args[1:]))
