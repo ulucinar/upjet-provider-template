@@ -6,10 +6,11 @@ package main
 
 import (
 	"context"
-	"github.com/crossplane/upjet/pkg/controller/conversion"
 	"os"
 	"path/filepath"
 	"time"
+
+	"github.com/crossplane/upjet/pkg/controller/conversion"
 
 	xpv1 "github.com/crossplane/crossplane-runtime/apis/common/v1"
 	xpcontroller "github.com/crossplane/crossplane-runtime/pkg/controller"
@@ -53,7 +54,7 @@ func main() {
 		enableExternalSecretStores = app.Flag("enable-external-secret-stores", "Enable support for ExternalSecretStores.").Default("false").Envar("ENABLE_EXTERNAL_SECRET_STORES").Bool()
 		enableManagementPolicies   = app.Flag("enable-management-policies", "Enable support for Management Policies.").Default("true").Envar("ENABLE_MANAGEMENT_POLICIES").Bool()
 
-		certsDir = app.Flag("certs-dir", "The directory that contains the server key and certificate.").Default("/tls/server").Envar("CERTS_DIR").ExistingFileOrDir()
+		certsDir = app.Flag("certs-dir", "The directory that contains the server key and certificate.").Default("/tls/server").Envar("CERTS_DIR").String()
 	)
 
 	kingpin.MustParse(app.Parse(os.Args[1:]))
@@ -101,6 +102,7 @@ func main() {
 		// terraform.WithProviderRunner(terraform.NewSharedProvider(log, os.Getenv("TERRAFORM_NATIVE_PROVIDER_PATH"), terraform.WithNativeProviderArgs("-debuggable")))
 		WorkspaceStore: terraform.NewWorkspaceStore(log),
 		SetupFn:        clients.TerraformSetupBuilder(*terraformVersion, *providerSource, *providerVersion),
+		StartWebhooks:  *certsDir != "",
 	}
 
 	if *enableExternalSecretStores {

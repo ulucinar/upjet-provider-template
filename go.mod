@@ -1,6 +1,8 @@
 module github.com/upbound/upjet-provider-template
 
-go 1.19
+go 1.21
+
+toolchain go1.21.4
 
 require (
 	dario.cat/mergo v1.0.0
@@ -118,4 +120,4 @@ require (
 	sigs.k8s.io/yaml v1.3.0 // indirect
 )
 
-replace github.com/crossplane/upjet => github.com/ulucinar/upbound-upjet v0.0.0-20240109224703-3902c697fb44
+replace github.com/crossplane/upjet => github.com/ulucinar/upbound-upjet v0.0.0-20240128153712-108d366a0464

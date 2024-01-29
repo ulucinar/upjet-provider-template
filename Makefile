@@ -247,11 +247,14 @@ help-special: crossplane.help
 
 build.init: kustomize-crds
 
-kustomize-crds: output.init
-	rm -fr $(OUTPUT_DIR)/package
-	cp -R package $(OUTPUT_DIR) && \
+kustomize-crds: output.init $(KUSTOMIZE) $(YQ)
+	@$(INFO) Kustomizing CRDs...
+	@rm -fr $(OUTPUT_DIR)/package || $(FAIL)
+	@cp -R package $(OUTPUT_DIR) && \
 	cd $(OUTPUT_DIR)/package/crds && \
-	kustomize create --autodetect
-	kustomize build $(OUTPUT_DIR)/package/kustomize -o $(OUTPUT_DIR)/package/crds.yaml
+	kustomize create --autodetect || $(FAIL)
+	@export YQ=$(YQ) && \
+	XDG_CONFIG_HOME=$(PWD)/package $(KUSTOMIZE) build --enable-alpha-plugins $(OUTPUT_DIR)/package/kustomize -o $(OUTPUT_DIR)/package/crds.yaml || $(FAIL)
+	@$(OK) Kustomizing CRDs.
 
 .PHONY: kustomize-crds
