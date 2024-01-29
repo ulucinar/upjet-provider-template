@@ -64,6 +64,7 @@ type ResourceStatus struct {
 }
 
 // +kubebuilder:object:root=true
+// +kubebuilder:storageversion
 
 // Resource is the Schema for the Resources API. The null_resource resource implements the standard resource lifecycle but takes no further action. The triggers_renamed argument allows specifying an arbitrary set of values that, when changed, will cause the resource to be replaced.
 // +kubebuilder:printcolumn:name="READY",type="string",JSONPath=".status.conditions[?(@.type=='Ready')].status"
